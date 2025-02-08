@@ -1,28 +1,40 @@
 # GitHub Folder Downloader
 
-A CLI tool to download folders from GitHub repositories without using ZIP archives.
+GitHub Folder Downloader is a command line tool to download folders from GitHub repositories without zipping. It supports specifying branch and subpath.
 
 ## Features
 
-- Parses a GitHub repository URL.
-- Recursively downloads folders and files.
-- Directly creates the local directory structure.
+- Download folders from GitHub repositories.
+- Specify branch and subpath.
+- Command line interface for ease of use.
 
 ## Installation
 
-For development, install in editable mode:
-```
-pip install -e .
-```
+You can install the package from PyPI using pip:
+
+    pip install github-folder-downloader
 
 ## Usage
 
-```bash
-github-folder-downloader <repo_url> <output_dir> [--branch <branch>]
-```
+Basic usage:
 
-## Development
+    github-folder-downloader <repo_url> <output_dir>
 
-- Use a virtual environment (venv) for development.
-- Develop features on topic branches and merge into main when complete.
-- Use GitHub CLI (`gh`) to create the repository and push changes.
+Optional arguments:
+
+    --branch BRANCH     The branch to download from (default: main)
+    --subpath SUBPATH   The repository sub-path to download (default: root)
+
+For more information, use:
+
+    github-folder-downloader --help
+
+## Maintainer
+
+- PyPi Username: toycode
+- Full Name: Hiroshi Okada
+- Public Email: okadahiroshi@miobox.jp
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

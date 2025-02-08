@@ -13,14 +13,17 @@ source venv/bin/activate
 echo "Upgrading pip..."
 pip install --upgrade pip
 
-echo "Installing build module..."
-pip install build
+echo "Installing build module and twine..."
+pip install build twine
 
 echo "Cleaning previous builds..."
 rm -rf dist/ build/ *.egg-info*
 
 echo "Building the package..."
 python -m build
+
+echo "Checking built distributions with twine..."
+twine check dist/*
 
 echo "Deactivating virtual environment..."
 deactivate

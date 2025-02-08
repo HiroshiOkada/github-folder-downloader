@@ -1,8 +1,9 @@
+LICENSE
 MANIFEST.in
 README.md
 setup.py
+src/github_folder_downloader/__init__.py
 src/github_folder_downloader/cli.py
-src/github_folder_downloader/init.py
 src/github_folder_downloader.egg-info/PKG-INFO
 src/github_folder_downloader.egg-info/SOURCES.txt
 src/github_folder_downloader.egg-info/dependency_links.txt
