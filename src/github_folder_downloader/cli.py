@@ -8,8 +8,12 @@ API_BASE = "https://api.github.com"
 
 def parse_repo_url(repo_url):
     """
-    Parses the GitHub repo URL and returns (owner, repo).
-    Expected format: https://github.com/owner/repo or with .git suffix.
+    Parses a GitHub repository URL that may include branch and subfolder information.
+    Expected formats:
+      - https://github.com/owner/repo
+      - https://github.com/owner/repo/tree/branch
+      - https://github.com/owner/repo/tree/branch/subpath
+    Returns a tuple (owner, repo, branch, subpath) where branch defaults to "main" and subpath defaults to "" if not provided.
     """
     parsed = urlparse(repo_url)
     path_parts = parsed.path.strip("/").split("/")
@@ -18,7 +22,14 @@ def parse_repo_url(repo_url):
     owner, repo = path_parts[0], path_parts[1]
     if repo.endswith(".git"):
         repo = repo[:-4]
-    return owner, repo
+    branch = "main"
+    subpath = ""
+    # If the URL contains 'tree', extract branch and subfolder from it.
+    if len(path_parts) >= 4 and path_parts[2] == "tree":
+        branch = path_parts[3]
+        if len(path_parts) > 4:
+            subpath = "/".join(path_parts[4:])
+    return owner, repo, branch, subpath
 
 def get_repo_contents(owner, repo, path="", branch="main"):
     """
@@ -85,11 +96,11 @@ def main():
     )
     args = parser.parse_args()
     
-    owner, repo = parse_repo_url(args.repo_url)
-    print(f"Processing repository '{owner}/{repo}' on branch '{args.branch}'...")
+    owner, repo, branch, subpath = parse_repo_url(args.repo_url)
+    print(f"Processing repository '{owner}/{repo}' on branch '{branch}' with subfolder '{subpath}'...")
     
-    contents = get_repo_contents(owner, repo, path="", branch=args.branch)
-    process_contents(contents, owner, repo, args.output_dir, args.branch)
+    contents = get_repo_contents(owner, repo, path=subpath, branch=branch)
+    process_contents(contents, owner, repo, args.output_dir, branch)
     print("Download complete.")
 
 if __name__ == "__main__":
