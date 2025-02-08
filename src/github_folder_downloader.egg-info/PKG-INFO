@@ -1,4 +1,4 @@
-Metadata-Version: 2.1
+Metadata-Version: 2.2
 Name: github-folder-downloader
 Version: 0.1.0
 Summary: A CLI tool to download folders from GitHub repositories.
@@ -7,3 +7,42 @@ Author: Your Name
 Author-email: your.email@example.com
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: MIT License
+Description-Content-Type: text/markdown
+Requires-Dist: requests
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: requires-dist
+Dynamic: summary
+
+# GitHub Folder Downloader
+
+A CLI tool to download folders from GitHub repositories without using ZIP archives.
+
+## Features
+
+- Parses a GitHub repository URL.
+- Recursively downloads folders and files.
+- Directly creates the local directory structure.
+
+## Installation
+
+For development, install in editable mode:
+```
+pip install -e .
+```
+
+## Usage
+
+```bash
+github-folder-downloader <repo_url> <output_dir> [--branch <branch>]
+```
+
+## Development
+
+- Use a virtual environment (venv) for development.
+- Develop features on topic branches and merge into main when complete.
+- Use GitHub CLI (`gh`) to create the repository and push changes.
