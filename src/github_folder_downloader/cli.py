@@ -9,13 +9,15 @@ API_BASE = "https://api.github.com"
 def parse_repo_url(repo_url):
     """
     Parses the GitHub repo URL and returns (owner, repo).
-    Expected format: https://github.com/owner/repo
+    Expected format: https://github.com/owner/repo or with .git suffix.
     """
     parsed = urlparse(repo_url)
     path_parts = parsed.path.strip("/").split("/")
     if len(path_parts) < 2:
         sys.exit("Invalid repository URL. Expected format: https://github.com/owner/repo")
     owner, repo = path_parts[0], path_parts[1]
+    if repo.endswith(".git"):
+        repo = repo[:-4]
     return owner, repo
 
 def get_repo_contents(owner, repo, path="", branch="main"):
@@ -76,6 +78,10 @@ def main():
     parser.add_argument(
         "--branch", default="main",
         help="The branch to download from (default: main)."
+    )
+    parser.add_argument(
+        "--subpath", default="",
+        help="The repository sub-path to download (default: root)."
     )
     args = parser.parse_args()
     

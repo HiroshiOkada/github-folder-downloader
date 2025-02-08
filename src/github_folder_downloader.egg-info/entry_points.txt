@@ -1,0 +1,2 @@
+[console_scripts]
+github-folder-downloader = github_folder_downloader.cli:main
