@@ -1,6 +1,13 @@
 #!/bin/bash
 set -e
 
+# Create venv and use it
+VENV_DIR="venv"
+if [ ! -d "$VENV_DIR" ]; then
+    python3 -m venv "$VENV_DIR"
+fi
+source "$VENV_DIR/bin/activate"
+
 # Create a temporary directory for testing
 TMP_DIR=$(mktemp -d)
 echo "Using temporary directory: ${TMP_DIR}"
@@ -20,3 +27,7 @@ diff -r "${TMP_DIR}/hellogitworld/src" "${TMP_DIR}/hellogitworld_download/src"
 
 echo "Test successful. Cleaning up temporary files..."
 rm -rf "${TMP_DIR}"
+
+# deactive venv
+deactivate
+
